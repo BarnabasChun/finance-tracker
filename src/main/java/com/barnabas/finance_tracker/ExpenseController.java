@@ -1,6 +1,9 @@
 package com.barnabas.finance_tracker;
 
+import com.barnabas.finance_tracker.dto.ExpenseCreateRequest;
+import com.barnabas.finance_tracker.dto.ExpenseDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +18,13 @@ public class ExpenseController {
     private final ExpenseService expenseService;
 
     @GetMapping
-    public List<Expense> getAllExpenses() {
+    public List<ExpenseDTO> getAllExpenses() {
         return expenseService.getAll();
     }
 
     @PostMapping
-    public Expense createExpense(@RequestBody Expense expense) {
-        return expenseService.save(expense);
+    public ResponseEntity<ExpenseDTO> createExpense(@RequestBody ExpenseCreateRequest request) {
+        return new ResponseEntity<>(expenseService.save(request), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
