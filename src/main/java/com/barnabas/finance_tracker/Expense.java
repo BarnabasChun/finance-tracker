@@ -6,6 +6,7 @@ import jakarta.persistence.*; // if you use more than a certain number of classe
 import lombok.Data; // eliminated need to manually write Getters, Setters
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,7 +19,7 @@ public class Expense {
     private Long id;
 
     private String description;
-    private Double amount;
+    private BigDecimal amount;
     private String category;
 
     @CreationTimestamp
