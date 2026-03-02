@@ -12,26 +12,21 @@ import java.util.List;
 @RequiredArgsConstructor // automatically generates a constructor for all final fields
 public class ExpenseController {
     // provided via Dependency Injection (DI)
-    private final ExpenseRepository expenseRepository;
+    private final ExpenseService expenseService;
 
     @GetMapping
     public List<Expense> getAllExpenses() {
-        return expenseRepository.findAll();
+        return expenseService.getAll();
     }
 
     @PostMapping
     public Expense createExpense(@RequestBody Expense expense) {
-        return expenseRepository.save(expense);
+        return expenseService.save(expense);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteExpense(@PathVariable Long id) {
-        if (!expenseRepository.existsById(id)) {
-            return ResponseEntity.notFound().build(); // Returns 404 if it's already gone
-        }
-
-        expenseRepository.deleteById(id); // method return is void
-
+        expenseService.delete(id); // If this fails, the 404 is sent automatically
         return ResponseEntity.noContent().build(); // Returns the 204 No Content status, which is the industry standard for a successful deletion.
     }
 }
