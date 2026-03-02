@@ -1,11 +1,13 @@
 package com.barnabas.finance_tracker.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
 public class ExpenseDTO {
     private Long id;
     private String description;

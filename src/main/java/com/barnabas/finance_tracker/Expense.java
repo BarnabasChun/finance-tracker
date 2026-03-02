@@ -3,7 +3,10 @@ package com.barnabas.finance_tracker;
 // Jakarta Persistence (JPA) allows for mapping Java objects to database tables using annotations and entity classes
 
 import jakarta.persistence.*; // if you use more than a certain number of classes from the same package (usually 5), editor automatically collapses them into a wildcard import to keep the top of your file "clean."
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data; // eliminated need to manually write Getters, Setters
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
@@ -11,6 +14,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Expense {
 
 
