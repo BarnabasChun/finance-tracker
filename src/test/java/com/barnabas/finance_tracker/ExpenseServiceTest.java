@@ -1,16 +1,14 @@
 package com.barnabas.finance_tracker;
 
 
-import com.barnabas.finance_tracker.dto.ExpenseCreateRequest;
 import com.barnabas.finance_tracker.dto.ExpenseDTO;
 import com.barnabas.finance_tracker.mapper.ExpenseMapper;
+import com.barnabas.finance_tracker.utils.ExpenseTestDataFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,31 +28,10 @@ public class ExpenseServiceTest {
 
     @Test
     public void should_ReturnDtoWithId_When_ExpenseIsCreated() {
-        ExpenseCreateRequest expenseCreateRequest = ExpenseCreateRequest.builder()
-            .amount(new BigDecimal("2.86"))
-            .category("Food")
-            .description("Coffee")
-            .build();
-
-        Expense entityToSave = Expense.builder()
-                .amount(new BigDecimal("2.86"))
-                .category("Food")
-                .description("Coffee")
-                .build();
-
-        Expense savedEntityWithId = Expense.builder()
-                .amount(new BigDecimal("2.86"))
-                .category("Food")
-                .description("Coffee")
-                .id(1L)
-                .build();
-
-        ExpenseDTO expectedResponse = ExpenseDTO.builder()
-                .amount(new BigDecimal("2.86"))
-                .category("Food")
-                .description("Coffee")
-                .id(1L)
-                .build();
+        var expenseCreateRequest = ExpenseTestDataFactory.createRequest();
+        var entityToSave = ExpenseTestDataFactory.createEntity();
+        var savedEntityWithId = ExpenseTestDataFactory.createEntityWithId(b -> b.id(5L));
+        var expectedResponse = ExpenseTestDataFactory.createResponseDto(b -> b.id(5L));
 
         given(expenseMapper.toEntity(expenseCreateRequest)).willReturn(entityToSave);
         given(expenseRepository.save(entityToSave)).willReturn(savedEntityWithId);
