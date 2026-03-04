@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -40,6 +39,6 @@ public class ExpenseServiceTest {
         ExpenseDTO resultingResponse = expenseService.save(expenseCreateRequest);
 
         assertThat(resultingResponse).isEqualTo(expectedResponse);
-        verify(expenseRepository).save(any(Expense.class)); // verifies mock for `save` was called properly
+        verify(expenseRepository).save(entityToSave); // verifies mock for `save` was called properly
     }
 }
